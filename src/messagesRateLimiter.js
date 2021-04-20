@@ -7,18 +7,18 @@ const rateLimiter = {};
  */
 const messagesRateLimiter = async (msg) => {
   const {
-    from: { id: userId },
+    chat: { id: chatId },
   } = msg;
 
-  if (!rateLimiter[userId]) rateLimiter[userId] = {};
+  if (!rateLimiter[chatId]) rateLimiter[chatId] = {};
 
   const now = Math.floor(Date.now() / 1000);
 
-  if (!rateLimiter[userId][now]) rateLimiter[userId] = { [now]: 0 };
+  if (!rateLimiter[chatId][now]) rateLimiter[chatId] = { [now]: 0 };
 
-  rateLimiter[userId][now]++;
+  rateLimiter[chatId][now]++;
 
-  if (rateLimiter[userId][now] > 2) return;
+  if (rateLimiter[chatId][now] > 2) return;
 
   botQueue.add('message', msg);
 };
