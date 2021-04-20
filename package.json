@@ -1,0 +1,16 @@
+{
+  "name": "howjsbot",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "MasterArthur",
+  "license": "ISC",
+  "dependencies": {
+    "bull": "3.22.1",
+    "node-telegram-bot-api": "0.52.0"
+  }
+}
