@@ -23,9 +23,9 @@ class Command {
   /**
    *
    * @param {string} commandName - /commandName
-   * @param {string} [args] - /commandName arguments
+   * @param {string} [arg] - /commandName argument
    */
-  constructor(commandName, args) {
+  constructor(commandName, arg) {
     if (!commandName) {
       throw new Error('commandName is required');
     }
@@ -35,13 +35,13 @@ class Command {
     this.commandName = Command.clearUsernameFromCommand(commandName);
 
     /**
-     * @property {string | null | undefined} arguments - /commandName arguments
+     * @property {string | null | undefined} argument - /commandName argument
      */
-    this.arguments = args;
+    this.argument = arg;
   }
 
   toString() {
-    return `/${this.commandName} ${this.arguments}`;
+    return `/${this.commandName} ${this.argument}`;
   }
 }
 

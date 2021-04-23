@@ -32,7 +32,7 @@ const messagesProcessor = async (job) => {
     const handler = routes[command.commandName];
 
     const result = await handler(
-      command.arguments,
+      command.argument,
       Object.freeze({ ...message })
     );
 

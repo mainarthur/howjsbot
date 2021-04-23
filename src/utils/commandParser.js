@@ -1,4 +1,5 @@
 const Command = require('../Command');
+const { SPACE } = require('../constants');
 
 /**
  *
@@ -25,6 +26,7 @@ const commandParser = (msg) => {
     const entity = entities[i];
 
     if (entity.offset === 0 && entity.type == 'bot_command') {
+      if (text[entity.length] !== SPACE) return null;
       return new Command(
         text.substring(1, entity.length),
         text.substring(entity.length + 1).trim()
