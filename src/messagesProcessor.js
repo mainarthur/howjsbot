@@ -1,4 +1,6 @@
 const TelegramBot = require('node-telegram-bot-api');
+const Bull = require('bull');
+const Timedelta = require('./utils/Timedelta');
 
 const bot = require('./bot/bot');
 
@@ -8,14 +10,16 @@ const commandParser = require('./utils/commandParser');
 
 /**
  *
- * @param {import('bull').Job<import('node-telegram-bot-api').Message>} job
+ * @param {Bull.Job<TelegramBot.Message>} job
  * @returns
  */
 const messagesProcessor = async (job) => {
   const {
     data: {
       text,
+      from: { id: userId },
       chat: { id: chatId },
+      date,
     },
     data: message,
   } = job;
@@ -32,7 +36,14 @@ const messagesProcessor = async (job) => {
       Object.freeze({ ...message })
     );
 
-    await bot.sendMessage(chatId, ...result);
+    await new Promise((res) => setTimeout(res, 5000));
+
+    const { date: responseDate } = await bot.sendMessage(chatId, ...result);
+    console.log(
+      `[${new Date().toLocaleString()}]${
+        userId === chatId ? `[#id${userId}]` : `[#id${userId}][#cid${chatId}]`
+      } ${command} ${new Timedelta(date, responseDate)}`
+    );
   } catch (err) {
     console.log(err);
   }

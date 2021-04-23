@@ -32,7 +32,6 @@ To use this bot, simply type "@HowJSBot " into your text box and click one of th
  */
 const reply = async (args, msg) => {
   const { message_id } = msg.reply_to_message ? msg.reply_to_message : msg;
-  console.log(message_id);
   return [
     'Reply!',
     {
