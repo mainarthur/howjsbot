@@ -1,5 +1,11 @@
+const TelegramBot = require('node-telegram-bot-api');
+
 /**
- * @returns {Promise<[string, import('node-telegram-bot-api').SendMessageOptions]>}
+ * @typedef {(args?: string, message?: TelegramBot.Message) => Promise<[string, TelegramBot.SendMessageOptions], [string]>} CommandHandler
+ */
+
+/**
+ * @type {CommandHandler}
  */
 const start = async () => {
   return [
@@ -21,6 +27,21 @@ To use this bot, simply type "@HowJSBot " into your text box and click one of th
   ];
 };
 
+/**
+ * @type {CommandHandler}
+ */
+const reply = async (args, msg) => {
+  const { message_id } = msg.reply_to_message ? msg.reply_to_message : msg;
+  console.log(message_id);
+  return [
+    'Reply!',
+    {
+      reply_to_message_id: message_id,
+    },
+  ];
+};
+
 module.exports = {
-  '/start': start,
+  start,
+  reply,
 };

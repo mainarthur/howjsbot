@@ -1,6 +1,6 @@
 const Bull = require('bull');
 
-const { BOT_NAME } = require('../config.json');
+const { BOT_NAME } = require('../../config.json');
 
 const botQueue = new Bull(BOT_NAME, {
   defaultJobOptions: {

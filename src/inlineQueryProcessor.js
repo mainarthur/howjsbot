@@ -1,6 +1,6 @@
-const bot = require('./bot');
-const generateId = require('./generateId');
-const generateRandomPercent = require('./generateRandomPercent');
+const bot = require('./bot/bot');
+const generateId = require('./utils/generateId');
+const generateRandomPercent = require('./utils/generateRandomPercent');
 
 /**
  * @param {import('node-telegram-bot-api').InlineQuery} iq

@@ -1,5 +1,5 @@
-const bot = require('./src/bot');
-const botQueue = require('./src/queue');
+const bot = require('./src/bot/bot');
+const botQueue = require('./src/bot/queue');
 
 const inlineQueryProcessor = require('./src/inlineQueryProcessor');
 const messagesProcessor = require('./src/messagesProcessor');

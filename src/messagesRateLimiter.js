@@ -1,4 +1,4 @@
-const botQueue = require('./queue');
+const botQueue = require('./bot/queue');
 
 const rateLimiter = {};
 

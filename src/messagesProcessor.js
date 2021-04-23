@@ -1,6 +1,10 @@
-const bot = require('./bot');
-/** @type {{[key: string]: (message: import('node-telegram-bot-api').Message) => Promise<[string, import('node-telegram-bot-api').SendMessageOptions]>}}*/
+const TelegramBot = require('node-telegram-bot-api');
+
+const bot = require('./bot/bot');
+
+/** @type {{[key: string]: import('./commands').CommandHandler }}*/
 const routes = require('./commands');
+const commandParser = require('./utils/commandParser');
 
 /**
  *
@@ -11,17 +15,27 @@ const messagesProcessor = async (job) => {
   const {
     data: {
       text,
-      from: { id: userId },
+      chat: { id: chatId },
     },
     data: message,
   } = job;
 
-  if (!routes[text]) return;
+  try {
+    const command = commandParser(message);
 
-  const handler = routes[text];
-  const result = await handler(Object.freeze({ ...message }));
+    if (!command || !routes[command.commandName]) return;
 
-  await bot.sendMessage(userId, ...result);
+    const handler = routes[command.commandName];
+
+    const result = await handler(
+      command.arguments,
+      Object.freeze({ ...message })
+    );
+
+    await bot.sendMessage(chatId, ...result);
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 module.exports = messagesProcessor;
